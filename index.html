@@ -65,20 +65,20 @@
                 dir:0,
             }
             //register a event listener on the canvas
-             right.addEventListener('mousedown',function(){
+             right.addEventListener('mousedown' || 'touchstart',function(){
                 player.dir = 1;
                 player.isMoving = true;
             });
-            right.addEventListener('mouseup',function(){
+            right.addEventListener('mouseup' || 'touchend',function(){
                 player.isMoving = 0;
                 player.isMoving = false;
             });
-            left.addEventListener('mousedown',function(){
+            left.addEventListener('mousedown' || 'touchstart',function(){
                 player.dir = -1;
                 if(player.x>0)
                 player.isMoving = true;
             });
-            left.addEventListener('mouseup',function(){
+            left.addEventListener('mouseup' || 'touchend',function(){
                 player.isMoving = 0;
                 player.isMoving = false;
             });
