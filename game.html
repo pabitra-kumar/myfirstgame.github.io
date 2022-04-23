@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My First Game</title>
+        <style>
+            canvas{
+                border:5px solid orange;
+                background-image: url("icons/space.png");
+            }
+            div{
+                border: 5px solid orange;
+                height: 100px;
+                width: 500px;
+                display: flex;
+                background-image: url("icons/space.png");
+            }
+            #playLeft{
+                height: 100px;
+                /* width: 100px; */
+            }
+            #playRight{
+                height: 100px;
+                /* width: 100px; */
+            }
+            button{
+                background-color: transparent;
+                border-color: transparent;
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="mycanvas" width="500px" height="400px"></canvas>
+        <div id="control">
+            <button id="left"><img id="playLeft" src="icons/left.ico"></button>
+            <button id="right"><img id="playRight" src="icons/right.ico"></button> 
+        </div>
+        <script>
+            let canvas= document.getElementById("mycanvas");
+            let pen = canvas.getContext('2d');
+            let gameH = canvas.height;
+            let gameW = canvas.width;
+            let gameOver = false;
+            pen.fillRect(10,10,20,20);
+            let enemyImg = new Image;
+            enemyImg.src = "icons/bomb.ico";
+            let playerImg = new Image;
+            playerImg.src = "icons/rocket.ico";
+            
+            
+            //JSON
+            let enemy = {
+                x: 150,
+                y :150,
+                w : 60,
+                h: 60,
+                speed : 5,
+            }
+            let player = {
+                x: 0,
+                y :gameH/2 - 30,
+                w : 60,
+                h: 60,
+                speed : 5,
+                isMoving : false,
+                dir:0,
+            }
+            //register a event listener on the canvas
+             right.addEventListener('mousedown',function(){
+                player.dir = 1;
+                player.isMoving = true;
+            });
+            right.addEventListener('mouseup',function(){
+                player.isMoving = 0;
+                player.isMoving = false;
+            });
+            left.addEventListener('mousedown',function(){
+                player.dir = -1;
+                if(player.x>0)
+                player.isMoving = true;
+            });
+            left.addEventListener('mouseup',function(){
+                player.isMoving = 0;
+                player.isMoving = false;
+            });
+
+            //-----------------------------------------//
+            function isColliding(r1,r2){
+                let side = r1.w*7/10;
+                if( Math.abs(r1.x - r2.x) <= side && Math.abs(r1.y - r2.y) <= side){
+                    return true;
+                }
+                return false;
+            }
+            function draw(){
+                pen.clearRect(0,0,gameW,gameH);
+                pen.drawImage(enemyImg,enemy.x, enemy.y, enemy.w, enemy.h);
+                pen.drawImage(playerImg,player.x,player.y,player.w,player.h);
+               // pen.drawImage(playImg,gameW*8/10,gameH*8/10,80,80);
+                pen.fillStyle = "red";
+               // pen.fillText('Score ' = player.x, 10, 50);
+            }
+            function update(){
+                if(player.dir==-1 && player.x==0){
+                    player.isMoving=false;
+                }
+                if(player.isMoving==true){
+                    player.x += player.speed*player.dir;
+                }
+                enemy.y +=enemy.speed;
+                if(enemy.y == gameH - enemy.h || enemy.y <=0){
+                    enemy.speed *= -1;
+                }
+                if(isColliding(enemy,player)){
+                    alert("Game Over");
+                    gameOver = true;
+                }
+                if(player.x > gameW - player.w){
+                    alert("You Won");
+                    gameOver = true;
+                }
+            }
+            function render(){
+                draw();
+                update();
+                console.log("In render");
+                if(!gameOver){
+                    window.requestAnimationFrame(render);
+                }
+            }
+            render();
+        </script>
+    </body>
+</html>
