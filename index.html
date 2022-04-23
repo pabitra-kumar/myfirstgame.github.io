@@ -65,7 +65,7 @@
                 dir:0,
             }
             //register a event listener on the canvas
-             right.addEventListener('click',function(){
+             right.addEventListener('keydown',function(){
                 player.dir = 1;
                 player.isMoving = true;
             });
@@ -73,7 +73,7 @@
                 player.isMoving = 0;
                 player.isMoving = false;
             });
-            left.addEventListener('click',function(){
+            left.addEventListener('keydown',function(){
                 player.dir = -1;
                 if(player.x>0)
                 player.isMoving = true;
