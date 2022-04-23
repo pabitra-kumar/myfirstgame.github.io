@@ -65,24 +65,41 @@
                 dir:0,
             }
             //register a event listener on the canvas
-             right.addEventListener('mousedown' || 'touchstart',function(){
+             right.addEventListener('mousedown',function(){
                 player.dir = 1;
                 player.isMoving = true;
             });
-            right.addEventListener('mouseup' || 'touchend',function(){
+            right.addEventListener('mouseup',function(){
                 player.isMoving = 0;
                 player.isMoving = false;
             });
-            left.addEventListener('mousedown' || 'touchstart',function(){
+            left.addEventListener('mousedown',function(){
                 player.dir = -1;
                 if(player.x>0)
                 player.isMoving = true;
             });
-            left.addEventListener('mouseup' || 'touchend',function(){
+            left.addEventListener('mouseup',function(){
                 player.isMoving = 0;
                 player.isMoving = false;
             });
-
+            
+            right.addEventListener('touchstart',function(){
+                player.dir = 1;
+                player.isMoving = true;
+            });
+            right.addEventListener('touchend',function(){
+                player.isMoving = 0;
+                player.isMoving = false;
+            });
+            left.addEventListener('touchstart',function(){
+                player.dir = -1;
+                if(player.x>0)
+                player.isMoving = true;
+            });
+            left.addEventListener('touchend',function(){
+                player.isMoving = 0;
+                player.isMoving = false;
+            });
             //-----------------------------------------//
             function isColliding(r1,r2){
                 let side = r1.w*7/10;
